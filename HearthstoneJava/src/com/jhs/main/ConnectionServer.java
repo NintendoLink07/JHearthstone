@@ -11,6 +11,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 
 public class ConnectionServer implements Runnable{
 
@@ -43,7 +44,9 @@ public class ConnectionServer implements Runnable{
             System.out.println("Message received from client is "+message);
             
             switch (message) {
-            	case "deck_0_queueUp": queueUp(socket.getRemoteSocketAddress().toString()); break;
+            	case "deck_0_queueUp": 
+            		queueUp(socket.getRemoteSocketAddress().toString()); 
+            		break;
             	default: System.out.println("NAH"); break;
             }
         }
@@ -61,23 +64,25 @@ public class ConnectionServer implements Runnable{
 		String host = "localhost";
         int port = 25002;
         InetAddress address = InetAddress.getByName(host);
-        socket = new Socket(address, port);
+        Socket qutSocket = new Socket(address, port);
         
         //POST
-        OutputStream os = socket.getOutputStream();
+        OutputStream os = qutSocket.getOutputStream();
         OutputStreamWriter osw = new OutputStreamWriter(os);
         BufferedWriter bw = new BufferedWriter(osw);
         
-        String sendMessage = s.substring(1) + "\n";
-        bw.write(sendMessage);
+        String sendMessage = s.substring(1);
+        bw.write(sendMessage + "\n");
         System.out.println("SENT MESSAGE: "+sendMessage);
         bw.flush();
         
         //GET
-        InputStream is = socket.getInputStream();
+        InputStream is = qutSocket.getInputStream();
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
         String message = br.readLine();
         System.out.println("RECEIVED MESSAGE: " +message);
+        
+        qutSocket.close();
 	}
 }

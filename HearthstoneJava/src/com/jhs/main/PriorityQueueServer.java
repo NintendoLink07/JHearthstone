@@ -31,7 +31,7 @@ public class PriorityQueueServer implements Runnable{
         while(true){
             //READ
             Socket ssocket = serverSocket.accept();
-            System.out.println("Client has connected: "+ssocket.getRemoteSocketAddress().toString());
+            //System.out.println("Client has connected: "+ssocket.getRemoteSocketAddress().toString());
         	new Thread(new PriorityQueueServer(ssocket)).start();
         }
 	}
@@ -56,7 +56,7 @@ public class PriorityQueueServer implements Runnable{
 	            String returnMessage = queue1.poll()+"_"+queue1.poll();
             	System.out.println("MATCH FOUND! Between "+returnMessage.split("_")[0]+" & "+returnMessage.split("_")[1]);
 	            		
-	            bw.write(returnMessage);
+	            bw.write(returnMessage + "\n");
 	            //System.out.println("Message sent to the client is "+returnMessage);
 	            bw.flush();
             }
