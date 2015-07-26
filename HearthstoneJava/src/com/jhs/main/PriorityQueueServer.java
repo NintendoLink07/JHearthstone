@@ -60,8 +60,6 @@ public class PriorityQueueServer implements Runnable{
 	            //System.out.println("Message sent to the client is "+returnMessage);
 	            bw.flush();
             }
-	        
-	        //serverSocket.close();
 	    }
 	    catch (SocketException e){
 	    	System.out.println("The connection did reset, shutting down server");

@@ -46,16 +46,6 @@ public class ConnectionServer implements Runnable{
             	case "deck_0_queueUp": queueUp(socket.getRemoteSocketAddress().toString()); break;
             	default: System.out.println("NAH"); break;
             }
-
-            /*String returnMessage = "return";
-
-            //Sending the response back to the client.
-            OutputStream os = socket.getOutputStream();
-            OutputStreamWriter osw = new OutputStreamWriter(os);
-            BufferedWriter bw = new BufferedWriter(osw);
-            bw.write(returnMessage);
-            System.out.println("Message sent to the client is "+returnMessage);
-            bw.flush();*/
         }
 	  
 	    catch (SocketException e){
